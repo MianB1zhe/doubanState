@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>读书@豆瓣</title> 
+
+<link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.min.css" %}">
+<link rel="stylesheet" href="{% static "mycss/template.css" %}">
+<script src="{% static "scripts/jquery.min.js" %}"></script>
+{% block head %}
+<meta name="author" content="archer.li<2422610747@qq.com>">
+{% endblock %}
+  </head>
+
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top"> 
+   <div class="container"> 
+    <div class="navbar-header"> 
+     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> 
+     <a class="navbar-brand" href="/blog">Blog</a> 
+    </div> 
+    <div id="navbar" class="collapse navbar-collapse"> 
+     <ul class="nav navbar-nav"> 
+      <li class="active"><a href="/booksearch/">读书</a></li> 
+      <li><a href="/about">电影</a></li> 
+      <li><a href="/about">About</a></li> 
+     </ul> 
+    </div>
+    <!--/.nav-collapse --> 
+   </div> 
+  </nav>
+
+  <div class="starter-template">
+    <h2>身体和灵魂，至少有一个要在家。</h2>
+    <p class="lead"></p>
+</div>
+</div><!-- /.container -->
+
+<div>
+  {% block content %}
+    <h2>hello</h2>
+  {% endblock %} 
+</div>
+
+</body>
+</html>

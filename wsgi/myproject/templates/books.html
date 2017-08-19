@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+<script src="{% static "scripts/highcharts.js" %}"></script>
+<script src="{% static "scripts/wordcloud2.js" %}"></script>
+<script src="{% static "scripts/imagesloaded.pkgd.min.js" %}"></script>
+<script src="{% static "scripts/masonry.pkgd.min.js" %}"></script>
+
+<script>
+$(function () {
+
+    var colors = Highcharts.getOptions().colors,
+    categories = {{years|safe}},
+    name = '年份',
+    data = {{data|safe}};
+    function setChart(name, categories, data, color) {
+        chart.xAxis[0].setCategories(categories, false);
+        chart.series[0].remove(false);
+        chart.addSeries({
+            name: name,
+            data: data,
+        }, false);
+        chart.redraw();
+    }
+
+    var chart = $('#bookchart').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '读书量统计图'
+        },
+        subtitle: {
+            text: 'Click the columns to view book data of month. Click again to back.'
+        },
+        xAxis: {
+            categories: categories
+        },
+        yAxis: {
+            title: {
+                text: 'books you have read'
+            }
+        },
+        plotOptions: {
+            column: {
+                cursor: 'pointer',
+                colorByPoint:true,
+                point: {
+                    events: {
+                        click: function() {
+                            var drilldown = this.drilldown;
+                            if (drilldown) { // drill down
+                                setChart(drilldown.name, drilldown.categories, drilldown.data, drilldown.color);
+                            } else { // restore
+                                setChart(name, categories, data);
+                            }
+                        }
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    color: 'black',
+                    style: {
+                        fontWeight: 'bold'
+                    },
+                    formatter: function() {
+                        return this.y ;
+                    }
+                }
+            }
+        },
+        tooltip: {
+            formatter: function() {
+                var point = this.point,
+                s = this.x +': you read <b>'+ this.y +' books</b><br/>';
+                if (point.drilldown) {
+                    s += 'Click to view book data of '+ point.category ;
+                } else {
+                    s += 'Click to return to book data of years';
+                }
+                return s;
+            }
+        },
+        series: [{
+            name: name,
+            data: data,
+            colorByPoint:true,
+        }],
+        exporting: {
+            enabled: false
+        }
+    })
+    .highcharts(); // return chart
+}); 
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+<div class='row'>
+    <div class='col-sm-12 col-md-8 col-md-offset-2'>
+        <h3 style='margin:20px'>{{countmessage|safe}}</h3>
+        <h4 style='margin:20px'>点击这里可以导出您的读书数据：
+            <a href="/csvdownload/?userid={{userid}}">数据下载</a> 
+        </h4>
+        <h4 style='margin:20px'>点击这里可以清除您的读书数据：
+            <a href="/deletedata/?userid={{userid}}">数据清除</a> 
+            <br>
+        </h4>         
+    </div>
+</div>
+
+<div class='row'>
+    <div class='col-sm-12 col-md-8 col-md-offset-2'>
+    <h5 style='margin:20px'>
+    ----------------------------------------------------------------------------
+
+    </h5>      
+    </div>
+</div>
+
+<div class='row'>
+    <div class='col-sm-12 col-md-8 col-md-offset-2'>
+        <h3 style='margin:20px'>这是由所有您读的书生成的统计图^__^</h3>
+    </div>
+</div>
+<div class='row'>       
+    <div id="bookchart" class='col-sm-12 col-md-8 col-md-offset-2'></div>
+</div>
+
+<div class='row'>
+    <div class='col-sm-12 col-md-8 col-md-offset-2'>
+        <h3 style='margin:20px'>这是由所有您读的书生成的标签云^__^</h3>
+    </div>   
+</div>
+<div class='row' onresize = resize_canvas()>
+    <div class='col-sm-12 col-md-8 col-md-offset-2' style='padding:30px'>
+        <canvas id="canvas" ></canvas>
+    </div>
+</div>
+
+<div class='row'>
+    <div class='col-sm-12 col-md-8 col-md-offset-2'>
+        <h3 style='margin:20px'>这是由所有您读的书生成的图片墙^__^</h3>
+    </div>   
+</div>
+<div id="masonary" class='col-sm-12 col-md-offset-2 col-md-8'>
+    {% for picurl in piclist %}
+        <div class='masonaryImage'><img src='{{picurl}}'></div>
+    {% endfor %}
+</div>
+
+<script>
+
+function resize_canvas(){
+    var options = {
+      "list": {{list|safe}},
+      "fontFamily": 'Hiragino Mincho Pro, serif',
+      "color": 'random-dark',
+      "gridSize": Math.ceil(8* $('#canvas').width() / 1024),
+      "weightFactor":Math.ceil($('#canvas').width()/{{list|safe}}[0][1]/4),
+      "backgroundColor": '#f0f0f0',
+      "rotateRatio": 0,
+    };
+    var canvas = document.getElementById('canvas');
+    var widthp = $('#canvas').closest('div').width();
+    canvas.width  = widthp;
+    canvas.height = widthp*0.618;
+    WordCloud(canvas, options);
+};
+
+$(resize_canvas());
+$(resize_canvas());
+
+$(function(){
+    $(window).resize(function(){
+        resize_canvas();
+    });
+});
+
+$(function(){
+  var $container = $('#masoanry');
+  $container.imagesLoaded(function(){
+  $container.masonry({
+  itemSelector : '.masonaryImage',
+  columnWidth:100,
+  isAnimated: true,
+  percentPosition: true,
+  });
+  });
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+   
+      <div class="container">
+         <div class="jumbotron ">
+         <h1>欢迎来到这里！</h1>
+         <br></br>
+         <p>这里可以查看你的豆瓣阅读状况（开发中...）</p>
+
+         <div style="padding: 30px 0px 0px;">
+            <form action="/doubanbooks" method="get" 
+            class="bs-example bs-example-form" name="mainpageform">
+              <div class="input-group">
+               <input type="text" name='mainpage' class="form-control" 
+               placeholder='在这里粘贴您的豆瓣主页地址,如https://www.douban.com/people/70276760/'>
+               <span class="input-group-btn">
+                   <input type="submit" id ='buload'value="Go!" class="btn btn-default"/>
+               </span>
+            </div><!-- /input-group -->
+         </form>
+         <div >
+  <h5>{{urlerror}}</h5>
+         </div>
+      </div>
+   </div>
+ </div>
+
+<div class="spinner">
+  <div class="cube1"></div>
+  <div class="cube2"></div>
+</div>
+
+<script>
+$('#buload').click(function(){
+  $(".container").fadeOut('fast');
+  $(".spinner").fadeIn('fast');
+});
+</script>
+
+{% endblock %}
