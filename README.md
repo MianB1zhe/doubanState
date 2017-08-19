@@ -1,8 +1,9 @@
+
 ## doubanState
 ##### 本项目为豆瓣读书数据统计网站[点击进入网站](https://doubanstate-lzymbz.rhcloud.com/booksearch/)
 #### 网站搭建在红帽OpenShift平台之上，后端使用Python+Django进行开发，数据库使用MongoDB，前端基于Bootstrap框架和javascript完成。
 ##### PS：本网站为豆瓣辅助工具，因此开发日志、用户交流也主要在本人豆瓣主页，详见[开发练手网站——查看豆瓣阅读状态](https://www.douban.com/note/561570926/)
-    
+ <p> </p>   
     
 #### 网站介绍：
 ##### 1.网站首页如下图，输入您的豆瓣个人主页地址(如https://www.douban.com/people/70276760/ )就可以进入统计结果界面了。
