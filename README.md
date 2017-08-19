@@ -1,7 +1,10 @@
 ## doubanState
 ##### 本项目为豆瓣读书数据统计网站[点击进入网站](https://doubanstate-lzymbz.rhcloud.com/booksearch/)
 #### 网站搭建在红帽OpenShift平台之上，后端使用Python+Django进行开发，数据库使用MongoDB，前端基于Bootstrap框架和javascript完成。
+##### PS：本网站为豆瓣辅助工具，因此开发日志、用户交流也主要在本人豆瓣主页，详见[开发练手网站——查看豆瓣阅读状态](https://www.douban.com/note/561570926/)
 
+
+#### 网站介绍：
 ##### 1.网站首页如下图，输入您的豆瓣个人主页地址(如https://www.douban.com/people/70276760/ )就可以进入统计结果界面了。
 ![](https://github.com/MianB1zhe/doubanState/blob/master/introPic/searchPage.png)
 ##### 2.因为网站采取豆瓣读书api与网络爬虫获取数据，若您的读书量较大，网站会停留在以下跳转动画较长时间，不要着急哦。
@@ -27,4 +30,4 @@
 
 
 ##### 最后，想做这个网站很久了，因为一直没看到豆瓣提供此类功能，而且看到很多人都有这方面需求，所以趁着五一假期开发了这个网站，我也是边做边学习，网站也比较简陋，大家有什么建议，无论关于界面、功能，都欢迎留言，也可以直接联系qq2422610747，我逐步完善。
-##### PS：本网站为豆瓣辅助工具，因此开发日志、用户交流也主要在本人豆瓣主页，详见[开发练手网站——查看豆瓣阅读状态](https://www.douban.com/note/561570926/)
+
