@@ -20,6 +20,7 @@ def blog(request):
     return render_to_response('blog.html')
 
 def booksearch(request):
+    # return HttpResponse('hello')
     return render_to_response('booksearch.html')
 
 def doubanbooks(request):

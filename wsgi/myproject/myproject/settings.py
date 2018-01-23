@@ -15,7 +15,7 @@ BASE_DIR = os.path.dirname(DJ_PROJECT_DIR)
 WSGI_DIR = os.path.dirname(BASE_DIR)
 REPO_DIR = os.path.dirname(WSGI_DIR)
 DATA_DIR = os.environ.get('OPENSHIFT_DATA_DIR', BASE_DIR)
-
+STATIC_URL = '/static/'
 import sys
 sys.path.append(os.path.join(REPO_DIR, 'libs'))
 import secrets
@@ -28,8 +28,8 @@ SECRETS = secrets.getter(os.path.join(DATA_DIR, 'secrets.json'))
 SECRET_KEY = SECRETS['secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG') == 'True'
-
+DEBUG = True
+TEMPLATE_DEBUG = True
 from socket import gethostname
 ALLOWED_HOSTS = [
     '*',
@@ -65,6 +65,8 @@ MIDDLEWARE_CLASSES = (
 # GETTING-STARTED: change 'myproject' to your project name:
 ROOT_URLCONF = 'myproject.urls'
 
+TEMPLATE_DIRS = (BASE_DIR + '/templates',)
+'''
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -80,8 +82,9 @@ TEMPLATES = [
         },
     },
 ]
+'''
 
-WSGI_APPLICATION = 'myproject.wsgi.application'
+#WSGI_APPLICATION = 'myproject.wsgi.application'
 
 
 # Database
@@ -115,6 +118,5 @@ DEFAULT_CHARSET='utf-8'
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(WSGI_DIR,'static')
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'static').replace('\\','/')]
-
+STATIC_ROOT = '' #os.path.join(BASE_DIR,'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR,'static'),]

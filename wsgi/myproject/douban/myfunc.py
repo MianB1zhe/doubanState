@@ -10,10 +10,10 @@ import re
 import csv
 
 count = 0
-conn = pymongo.MongoClient('127.2.88.130',27017)
-#conn = pymongo.MongoClient()
+#conn = pymongo.MongoClient('127.0.0.1',27017)
+conn = pymongo.MongoClient()
 db = conn['doubanstate']
-db.authenticate('admin', 'PfZVxndF-A7_')
+#db.authenticate('Ubuntu', '')
 booktable = db['book']
 booknum = db['booknum']
 
